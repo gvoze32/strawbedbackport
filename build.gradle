@@ -17,7 +17,7 @@ repositories {
 }
 
 base {
-    archivesName = mod_id
+    archivesName = "strawbedbackport"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -62,6 +62,7 @@ tasks.withType(ProcessResources).configureEach {
             mod_name               : mod_name,
             mod_license            : mod_license,
             mod_version            : mod_version,
+            mod_authors            : mod_authors,
     ]
     inputs.properties replaceProperties
 
