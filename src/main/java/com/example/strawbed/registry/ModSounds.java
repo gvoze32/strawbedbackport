@@ -19,6 +19,9 @@ public final class ModSounds {
     public static final Supplier<SoundEvent> STRAW_BED_HIT = register("block.straw_bed.hit");
     public static final Supplier<SoundEvent> STRAW_BED_FALL = register("block.straw_bed.fall");
 
+    public static final net.minecraft.world.level.block.SoundType STRAW_BED_SOUNDS = new net.neoforged.neoforge.common.util.DeferredSoundType(1.0F, 1.0F,
+            STRAW_BED_BREAK, STRAW_BED_STEP, STRAW_BED_PLACE, STRAW_BED_HIT, STRAW_BED_FALL);
+
     private static DeferredHolder<SoundEvent, SoundEvent> register(String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(StrawBedMod.MOD_ID, name);
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(id));

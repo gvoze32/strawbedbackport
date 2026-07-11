@@ -1,20 +1,65 @@
 {
   "block.straw_bed.break": {
-    "sounds": [{ "name": "block/grass/break1", "type": "event" }]
+    "category": "block",
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "strawbed:block/straw_bed/straw_bed_break1",
+      "strawbed:block/straw_bed/straw_bed_break2",
+      "strawbed:block/straw_bed/straw_bed_break3",
+      "strawbed:block/straw_bed/straw_bed_break4"
+    ]
   },
   "block.straw_bed.break_leave": {
-    "sounds": [{ "name": "block/grass/break2", "type": "event" }]
-  },
-  "block.straw_bed.step": {
-    "sounds": [{ "name": "block/grass/step1", "type": "event" }]
+    "category": "block",
+    "subtitle": "subtitles.block.straw_bed.break_leave",
+    "sounds": [
+      "strawbed:block/straw_bed/straw_bed_break_leave"
+    ]
   },
   "block.straw_bed.place": {
-    "sounds": [{ "name": "block/grass/place1", "type": "event" }]
+    "category": "block",
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "strawbed:block/straw_bed/straw_bed_place1",
+      "strawbed:block/straw_bed/straw_bed_place2",
+      "strawbed:block/straw_bed/straw_bed_place3",
+      "strawbed:block/straw_bed/straw_bed_place4"
+    ]
   },
   "block.straw_bed.hit": {
-    "sounds": [{ "name": "block/grass/hit1", "type": "event" }]
+    "category": "block",
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      "strawbed:block/straw_bed/straw_bed_hit1",
+      "strawbed:block/straw_bed/straw_bed_hit2",
+      "strawbed:block/straw_bed/straw_bed_hit3",
+      "strawbed:block/straw_bed/straw_bed_hit4",
+      "strawbed:block/straw_bed/straw_bed_hit5",
+      "strawbed:block/straw_bed/straw_bed_hit6"
+    ]
+  },
+  "block.straw_bed.step": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "strawbed:block/straw_bed/straw_bed_step1",
+      "strawbed:block/straw_bed/straw_bed_step2",
+      "strawbed:block/straw_bed/straw_bed_step3",
+      "strawbed:block/straw_bed/straw_bed_step4",
+      "strawbed:block/straw_bed/straw_bed_step5",
+      "strawbed:block/straw_bed/straw_bed_step6"
+    ]
   },
   "block.straw_bed.fall": {
-    "sounds": [{ "name": "block/grass/fall1", "type": "event" }]
+    "category": "block",
+    "subtitle": "subtitles.block.generic.fall",
+    "sounds": [
+      "strawbed:block/straw_bed/straw_bed_step1",
+      "strawbed:block/straw_bed/straw_bed_step2",
+      "strawbed:block/straw_bed/straw_bed_step3",
+      "strawbed:block/straw_bed/straw_bed_step4",
+      "strawbed:block/straw_bed/straw_bed_step5",
+      "strawbed:block/straw_bed/straw_bed_step6"
+    ]
   }
 }
