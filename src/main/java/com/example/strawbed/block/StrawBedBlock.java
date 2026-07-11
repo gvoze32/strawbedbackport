@@ -21,10 +21,19 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 
+import net.minecraft.world.level.block.entity.BlockEntity;
+import org.jetbrains.annotations.Nullable;
+
 public class StrawBedBlock extends BedBlock {
 
     public StrawBedBlock(Properties properties) {
         super(DyeColor.BROWN, properties);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return null;
     }
 
     @Override
