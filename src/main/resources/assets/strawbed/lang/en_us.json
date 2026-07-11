@@ -1,6 +1,5 @@
 {
   "block.strawbed.straw_bed": "Straw Bed",
   "item.strawbed.straw_bed": "Straw Bed",
-  "block.strawbed.straw_bed.forbidden_dimension": "The straw bed crumbles in this dimension",
   "stat.strawbed.sleep_in_straw_bed": "Times Slept in Straw Bed"
 }

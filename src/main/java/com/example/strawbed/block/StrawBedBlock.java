@@ -59,7 +59,6 @@ public class StrawBedBlock extends BedBlock {
         // In dimensions where beds don't work: destroy the bed (no explosion)
         if (!level.dimensionType().bedWorks()) {
             removeBothHalves(level, pos, state, ModSounds.STRAW_BED_BREAK.get());
-            player.displayClientMessage(Component.translatable("block.strawbed.straw_bed.forbidden_dimension"), true);
             return InteractionResult.SUCCESS;
         }
 
