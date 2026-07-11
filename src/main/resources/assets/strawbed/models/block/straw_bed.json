@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:cutout",
   "gui_light": "front",
   "textures": {
     "all": "strawbed:block/straw_bed",
