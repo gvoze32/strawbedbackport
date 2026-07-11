@@ -4,6 +4,7 @@ import com.example.strawbed.registry.ModSounds;
 import com.example.strawbed.world.StrawBedTracker;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -20,11 +21,32 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
-
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class StrawBedBlock extends BedBlock {
+
+    // Foot: flat slab, 4 pixels tall (same shape regardless of direction)
+    private static final VoxelShape FOOT_SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0);
+
+    // Head shapes per direction: base (4px) + pillow (5px, on the side away from foot)
+    // The pillow is on the far side from the foot half
+    private static final VoxelShape HEAD_SOUTH = Shapes.or(
+            Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 8.0),    // base
+            Block.box(0.0, 0.0, 8.0, 16.0, 5.0, 16.0));   // pillow (south side)
+    private static final VoxelShape HEAD_NORTH = Shapes.or(
+            Block.box(0.0, 0.0, 8.0, 16.0, 4.0, 16.0),    // base
+            Block.box(0.0, 0.0, 0.0, 16.0, 5.0, 8.0));     // pillow (north side)
+    private static final VoxelShape HEAD_EAST = Shapes.or(
+            Block.box(0.0, 0.0, 0.0, 8.0, 4.0, 16.0),     // base
+            Block.box(8.0, 0.0, 0.0, 16.0, 5.0, 16.0));    // pillow (east side)
+    private static final VoxelShape HEAD_WEST = Shapes.or(
+            Block.box(8.0, 0.0, 0.0, 16.0, 4.0, 16.0),    // base
+            Block.box(0.0, 0.0, 0.0, 8.0, 5.0, 16.0));     // pillow (west side)
 
     public StrawBedBlock(Properties properties) {
         super(DyeColor.BROWN, properties);
@@ -39,6 +61,22 @@ public class StrawBedBlock extends BedBlock {
     @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (state.getValue(PART) == BedPart.FOOT) {
+            return FOOT_SHAPE;
+        }
+        // Head part: pillow position depends on facing direction
+        Direction facing = state.getValue(FACING);
+        return switch (facing) {
+            case SOUTH -> HEAD_SOUTH;
+            case NORTH -> HEAD_NORTH;
+            case EAST -> HEAD_EAST;
+            case WEST -> HEAD_WEST;
+            default -> HEAD_SOUTH;
+        };
     }
 
     @Override
