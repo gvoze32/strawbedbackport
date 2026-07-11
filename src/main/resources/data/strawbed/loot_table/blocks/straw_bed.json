@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "strawbed:straw_bed"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "strawbed:straw_bed",
+          "properties": {
+            "part": "head"
+          }
+        }
+      ]
+    }
+  ]
+}

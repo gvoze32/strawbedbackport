@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HHH"
+  ],
+  "key": {
+    "H": "minecraft:hay_block"
+  },
+  "result": {
+    "id": "strawbed:straw_bed",
+    "count": 4
+  }
+}

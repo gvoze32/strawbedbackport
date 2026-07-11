@@ -1,0 +1,20 @@
+{
+  "block.straw_bed.break": {
+    "sounds": [{ "name": "block/grass/break1", "type": "event" }]
+  },
+  "block.straw_bed.break_leave": {
+    "sounds": [{ "name": "block/grass/break2", "type": "event" }]
+  },
+  "block.straw_bed.step": {
+    "sounds": [{ "name": "block/grass/step1", "type": "event" }]
+  },
+  "block.straw_bed.place": {
+    "sounds": [{ "name": "block/grass/place1", "type": "event" }]
+  },
+  "block.straw_bed.hit": {
+    "sounds": [{ "name": "block/grass/hit1", "type": "event" }]
+  },
+  "block.straw_bed.fall": {
+    "sounds": [{ "name": "block/grass/fall1", "type": "event" }]
+  }
+}
