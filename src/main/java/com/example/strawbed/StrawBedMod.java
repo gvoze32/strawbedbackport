@@ -27,13 +27,6 @@ public class StrawBedMod {
 
         NeoForge.EVENT_BUS.addListener(this::onPlayerWakeUp);
         NeoForge.EVENT_BUS.addListener(this::onPlayerSetSpawn);
-        modBus.addListener(this::commonSetup);
-    }
-
-    private void commonSetup(final net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            net.minecraft.world.level.block.ComposterBlock.COMPOSTABLES.put(ModItems.STRAW_BED.get(), 0.65f);
-        });
     }
 
     private void addCreativeTabItems(BuildCreativeModeTabContentsEvent event) {
