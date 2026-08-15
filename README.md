@@ -26,4 +26,5 @@ Yes! Feel free to include this mod in any Modrinth or CurseForge modpack.
 Each version is published with the loaders listed above.
 
 ## Development
-See [MULTI_TARGET_MIGRATION.md](MULTI_TARGET_MIGRATION.md) for the Stonecutter target matrix, version-porting boundaries, and release checklist.
+See [MULTI_TARGET_MIGRATION.md](MULTI_TARGET_MIGRATION.md) for the Stonecraft + Stonecutter target matrix, preprocessing workflow, version-porting boundaries, and release checklist.
+Read the [Stonecraft overview](https://github.com/meza/stonecraft/blob/main/docs/docs/01-Stonecraft.mdx) for the upstream Gradle/preprocessor conventions.
