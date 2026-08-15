@@ -10,8 +10,15 @@ authors="gvoze32"
 description='''${description}'''
 
 [[dependencies.${id}]]
+modId="forge"
+mandatory=true
+versionRange="*"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${id}]]
 modId="minecraft"
-type="required"
+mandatory=true
 versionRange="[${minecraftVersion},)"
 ordering="NONE"
 side="BOTH"

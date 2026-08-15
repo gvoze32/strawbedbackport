@@ -10,6 +10,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+//? if <1.20.5 {
+/*import net.minecraft.world.InteractionHand;
+*///?}
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -26,7 +29,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
+//? if >=1.21.11 {
+/*import net.minecraft.world.attribute.EnvironmentAttributes;
+*///?}
 
 public class StrawBedBlock extends BedBlock {
 
@@ -52,11 +57,12 @@ public class StrawBedBlock extends BedBlock {
         super(DyeColor.BROWN, properties);
     }
 
-    @Nullable
+    //? if <26.2 {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return null;
     }
+    //?}
 
     @Override
     public RenderShape getRenderShape(BlockState state) {
@@ -64,7 +70,11 @@ public class StrawBedBlock extends BedBlock {
     }
 
     @Override
+    //? if >=1.20.5 {
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    //?} else {
+    /*public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    *///?}
         if (state.getValue(PART) == BedPart.FOOT) {
             return FOOT_SHAPE;
         }
@@ -79,9 +89,20 @@ public class StrawBedBlock extends BedBlock {
         };
     }
 
+    //? if >=1.20.5 {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        if (level.isClientSide) {
+        return attemptSleep(state, level, pos, player);
+    }
+    //?} else {
+    /*@Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return attemptSleep(state, level, pos, player);
+    }
+    *///?}
+
+    private InteractionResult attemptSleep(BlockState state, Level level, BlockPos pos, Player player) {
+        if (isClientSide(level)) {
             return InteractionResult.CONSUME;
         }
 
@@ -94,15 +115,19 @@ public class StrawBedBlock extends BedBlock {
             }
         }
 
-        // In dimensions where beds don't work: destroy the bed (no explosion)
-        if (!level.dimensionType().bedWorks()) {
+        if (!bedWorks(level, pos)) {
             removeBothHalves(level, pos, state, ModSounds.STRAW_BED_BREAK.get());
             return InteractionResult.SUCCESS;
         }
 
         // Check if bed is occupied
         if (state.getValue(OCCUPIED)) {
-            player.displayClientMessage(Component.translatable("block.minecraft.bed.occupied"), true);
+            //? if <1.19 {
+            /*displayOverlay(player, new net.minecraft.network.chat.TranslatableComponent(
+                    "block.minecraft.bed.occupied"));*/
+            //?} else {
+            displayOverlay(player, Component.translatable("block.minecraft.bed.occupied"));
+            //?}
             return InteractionResult.SUCCESS;
         }
 
@@ -114,8 +139,9 @@ public class StrawBedBlock extends BedBlock {
         if (result.left().isPresent()) {
             StrawBedTracker.finishSleepAttempt(serverPlayer, false);
             Player.BedSleepingProblem problem = result.left().get();
-            if (problem.getMessage() != null) {
-                player.displayClientMessage(problem.getMessage(), true);
+            Component message = sleepingProblemMessage(problem);
+            if (message != null) {
+                displayOverlay(player, message);
             }
             return InteractionResult.SUCCESS;
         }
@@ -126,6 +152,37 @@ public class StrawBedBlock extends BedBlock {
         StrawBedTracker.finishSleepAttempt(serverPlayer, true);
         return InteractionResult.SUCCESS;
     }
+    private static boolean isClientSide(Level level) {
+        //? if >=1.21.11 {
+        /*return level.isClientSide();*/
+        //?} else {
+        return level.isClientSide;
+        //?}
+    }
+
+    private static boolean bedWorks(Level level, BlockPos pos) {
+        //? if >=1.21.11 {
+        /*return level.environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, pos).canSleep(level);*/
+        //?} else {
+        return level.dimensionType().bedWorks();
+        //?}
+    }
+
+    private static Component sleepingProblemMessage(Player.BedSleepingProblem problem) {
+        //? if >=1.21.11 {
+        /*return problem.message();*/
+        //?} else {
+        return problem.getMessage();
+        //?}
+    }
+    private static void displayOverlay(Player player, Component message) {
+        //? if >=26.1 {
+        /*player.sendOverlayMessage(message);*/
+        //?} else {
+        player.displayClientMessage(message, true);
+        //?}
+    }
+
 
     public static void removeBothHalves(Level level, BlockPos headPos, BlockState headState, SoundEvent sound) {
         BlockPos footPos = headPos.relative(headState.getValue(FACING).getOpposite());

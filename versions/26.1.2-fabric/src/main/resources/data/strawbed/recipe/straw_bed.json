@@ -5,12 +5,10 @@
     "HHH"
   ],
   "key": {
-    "H": {
-      "item": "minecraft:hay_block"
-    }
+    "H": "minecraft:hay_block"
   },
   "result": {
-    "${itemIdentifier}": "strawbed:straw_bed",
+    "id": "strawbed:straw_bed",
     "count": 4
   }
 }

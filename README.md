@@ -10,11 +10,20 @@ A Straw Bed is a consumable utility block that allows you to sleep through the n
 * Place it in a composter for a 65% chance to raise the compost level
 
 ## Supported versions
-* 1.21.1 (NeoForge)
+* 1.18.2 (Forge, Fabric)
+* 1.19.2 (Forge, Fabric)
+* 1.20.1 (Forge, Fabric)
+* 1.21.1 (Fabric, NeoForge)
+* 1.21.11 (Fabric, NeoForge)
+* 26.1.2 (Fabric, NeoForge)
+* 26.2 (Fabric, NeoForge)
 
 ## FAQ
 **Can I use this in my modpack?**
 Yes! Feel free to include this mod in any Modrinth or CurseForge modpack.
 
-**Will you port this to Fabric or older versions?**
-Currently, this mod is developed specifically for NeoForge 1.21.1.
+**Which loaders are supported?**
+Each version is published with the loaders listed above.
+
+## Development
+See [MULTI_TARGET_MIGRATION.md](MULTI_TARGET_MIGRATION.md) for the Stonecutter target matrix, version-porting boundaries, and release checklist.

@@ -47,7 +47,11 @@ public final class StrawBedTracker {
         if (pos == null) {
             return;
         }
+        //? if <1.20 {
+        /*Level level = serverPlayer.getLevel();*/
+        //?} else {
         Level level = serverPlayer.level();
+        //?}
         BlockState state = level.getBlockState(pos);
         if (!state.is(ModBlocks.STRAW_BED.get())) {
             return;
