@@ -1,6 +1,9 @@
 name: Publish
 
 on:
+  push:
+    tags:
+      - "v*"
   release:
     types: [published]
   workflow_dispatch:
@@ -68,7 +71,7 @@ jobs:
       - name: Check out release
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.release.tag_name || inputs.tag }}
+          ref: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
 
       - name: Set up Java 21
         uses: actions/setup-java@v5
@@ -94,8 +97,8 @@ jobs:
           curseforge-id: ${{ vars.CURSEFORGE_PROJECT_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
-          name: Straw Bed Backport ${{ github.event.release.tag_name || inputs.tag }} / Minecraft ${{ matrix.minecraft }}
-          version: ${{ github.event.release.tag_name || inputs.tag }}
+          name: Straw Bed Backport ${{ github.event.release.tag_name || inputs.tag || github.ref_name }} / Minecraft ${{ matrix.minecraft }}
+          version: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
           version-type: release
           changelog: ${{ github.event.release.body || '' }}
           loaders: ${{ matrix.loader }}
