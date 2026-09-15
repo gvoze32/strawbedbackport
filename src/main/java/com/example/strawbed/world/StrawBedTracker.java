@@ -30,12 +30,8 @@ public final class StrawBedTracker {
         }
     }
 
-    public static boolean shouldCancelSpawnSet(Player player, BlockPos newSpawn) {
-        if (newSpawn == null) {
-            return false;
-        }
-        BlockPos pending = PENDING_BEDS.get(player.getUUID());
-        return pending != null && pending.equals(newSpawn);
+    public static boolean shouldCancelSpawnSet(Player player) {
+        return PENDING_BEDS.containsKey(player.getUUID());
     }
 
     public static void onWake(Player player) {

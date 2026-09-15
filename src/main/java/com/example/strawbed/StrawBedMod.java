@@ -141,7 +141,7 @@ public class StrawBedMod {
 
     private void onPlayerSetSpawn(PlayerSetSpawnEvent event) {
         if (StrawBedTracker.shouldCancelSpawnSet(
-                (net.minecraft.world.entity.player.Player) event.getEntity(), event.getNewSpawn())) {
+                (net.minecraft.world.entity.player.Player) event.getEntity())) {
             event.setCanceled(true);
         }
     }
@@ -152,7 +152,7 @@ public class StrawBedMod {
 
     private void onPlayerSetSpawn(PlayerSetSpawnEvent event) {
         if (StrawBedTracker.shouldCancelSpawnSet(
-                (net.minecraft.world.entity.player.Player) event.getEntity(), event.getNewSpawn())) {
+                (net.minecraft.world.entity.player.Player) event.getEntity())) {
             event.setCanceled(true);
         }
     }*/

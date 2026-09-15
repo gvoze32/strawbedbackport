@@ -13,6 +13,9 @@
       "${group}.StrawBedMod"
     ]
   },
+  "mixins": [
+    "strawbed.mixins.json"
+  ],
   "depends": {
     "fabricloader": "*",
     "fabric-api": ">=${fabricVersion}",
