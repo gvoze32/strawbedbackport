@@ -1,5 +1,6 @@
 {
   "block.strawbed.straw_bed": "Straw Bed",
   "item.strawbed.straw_bed": "Straw Bed",
-  "stat.strawbed.sleep_in_straw_bed": "Times Slept in Straw Bed"
+  "stat.strawbed.sleep_in_straw_bed": "Times Slept in Straw Bed",
+  "subtitles.block.straw_bed.break_leave": "Straw Bed breaks"
 }

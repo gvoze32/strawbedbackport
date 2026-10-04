@@ -28,7 +28,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.function.Supplier;
 
 public final class ModStats {
-    //? if >=1.20 {
     //? if neoforge {
     //? if <1.21.11 {
     public static final DeferredRegister<ResourceLocation> CUSTOM_STATS =
@@ -38,11 +37,18 @@ public final class ModStats {
             DeferredRegister.create(Registries.CUSTOM_STAT, StrawBedMod.MOD_ID);*/
     //?}
     //?} else if forge {
+    //? if >=1.20 {
     /*public static final net.minecraftforge.registries.DeferredRegister<ResourceLocation> CUSTOM_STATS =
             net.minecraftforge.registries.DeferredRegister.create(Registries.CUSTOM_STAT, StrawBedMod.MOD_ID);*/
+    //?} else {
+    /*public static final net.minecraftforge.registries.DeferredRegister<ResourceLocation> CUSTOM_STATS =
+            net.minecraftforge.registries.DeferredRegister.create(
+                    net.minecraft.core.Registry.CUSTOM_STAT_REGISTRY, StrawBedMod.MOD_ID);*/
     //?}
     //?}
 
+    // Every loader must put the id in the CUSTOM_STAT registry: Stats.CUSTOM.get
+    // throws a NullPointerException (Stat.buildName) for unregistered ids.
     //? if <1.21.11 {
     public static final Supplier<ResourceLocation> SLEEP_IN_STRAW_BED = register();
     //?} else {
@@ -90,7 +96,8 @@ public final class ModStats {
     //?}
     //?} else {
     /*private static Supplier<ResourceLocation> register() {
-        return () -> new ResourceLocation(StrawBedMod.MOD_ID, "sleep_in_straw_bed");
+        return CUSTOM_STATS.register("sleep_in_straw_bed",
+                () -> new ResourceLocation(StrawBedMod.MOD_ID, "sleep_in_straw_bed"));
     }*/
     //?}
     //?}

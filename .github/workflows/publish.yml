@@ -4,8 +4,8 @@ on:
   push:
     tags:
       - "v*"
-  release:
-    types: [published]
+  # No `release` trigger: publishing a GitHub release also pushes its tag,
+  # which would run this workflow twice and upload every file twice.
   workflow_dispatch:
     inputs:
       tag:
@@ -71,7 +71,7 @@ jobs:
       - name: Check out release
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
+          ref: ${{ inputs.tag || github.ref_name }}
 
       - name: Set up Java 21
         uses: actions/setup-java@v5
@@ -97,10 +97,9 @@ jobs:
           curseforge-id: ${{ vars.CURSEFORGE_PROJECT_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
-          name: Straw Bed Backport ${{ github.event.release.tag_name || inputs.tag || github.ref_name }} / Minecraft ${{ matrix.minecraft }}
-          version: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
+          name: Straw Bed Backport ${{ inputs.tag || github.ref_name }} / Minecraft ${{ matrix.minecraft }}
+          version: ${{ inputs.tag || github.ref_name }}-${{ matrix.minecraft }}-${{ matrix.loader }}
           version-type: release
-          changelog: ${{ github.event.release.body || '' }}
           loaders: ${{ matrix.loader }}
           environment: client | server
           game-versions: ${{ matrix.minecraft }}

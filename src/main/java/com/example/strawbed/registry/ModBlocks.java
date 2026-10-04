@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MaterialColor;
 *///?} else {
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 //?}
 //? if fabric {
 /*import net.minecraft.core.Registry;
@@ -64,6 +65,8 @@ public final class ModBlocks {
             () -> new StrawBedBlock(createProperties()));*/
     //?}
 
+    // Pistons must destroy beds instead of pushing one half. BedBlock does this
+    // itself before 1.20; newer versions moved it to the block properties.
     //? if <1.20 {
     /*private static BlockBehaviour.Properties createProperties() {
         return BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.COLOR_YELLOW)
@@ -78,7 +81,8 @@ public final class ModBlocks {
                 .sound(ModSounds.STRAW_BED_SOUNDS)
                 .strength(0.2f)
                 .noOcclusion()
-                .ignitedByLava();
+                .ignitedByLava()
+                .pushReaction(PushReaction.DESTROY);
     }
     //?}
 

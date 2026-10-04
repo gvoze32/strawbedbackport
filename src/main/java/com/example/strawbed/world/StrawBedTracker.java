@@ -6,6 +6,7 @@ import com.example.strawbed.registry.ModSounds;
 import com.example.strawbed.registry.ModStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,13 +35,19 @@ public final class StrawBedTracker {
         return PENDING_BEDS.containsKey(player.getUUID());
     }
 
-    public static void onWake(Player player) {
-        if (!(player instanceof ServerPlayer serverPlayer)) {
+    /**
+     * Consumes the straw bed the player slept in. {@code sleepingPos} is the
+     * bed position the player is waking from (null if unknown); a bed is only
+     * consumed when it matches the straw bed recorded for that player, so
+     * waking from a regular bed never breaks a straw bed elsewhere.
+     */
+    public static void onWake(LivingEntity entity, BlockPos sleepingPos) {
+        if (!(entity instanceof ServerPlayer serverPlayer)) {
             return;
         }
         UUID playerId = serverPlayer.getUUID();
         BlockPos pos = ACTIVE_BEDS.remove(playerId);
-        if (pos == null) {
+        if (pos == null || !pos.equals(sleepingPos)) {
             return;
         }
         //? if <1.20 {
